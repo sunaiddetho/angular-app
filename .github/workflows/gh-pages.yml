@@ -36,7 +36,7 @@ jobs:
     - name: Deploy
       if: success()
       run: |
-        aws s3 ls s3://dev-xpro/dev-xpro.c3spectra.cloud/ --recursive | awk '{$1,$2,$3=""; print$0}' | sed 's/^[ \t]*//' | grep 'v[1-9]' | cut -d"/" | sort | uniq | cut -d"/" -f2 | tail -1
+        aws s3 ls s3://dev-xpro/dev-xpro.c3spectra.cloud/ --recursive | awk '{$1=$2=$3=""; print $0}' | sed 's/^[ \t]*//' | grep 'v[1-9]' | cut -d"/" -f2 | sort | uniq | cut -d"v" -f2 | tail -1
         #aws s3 sync ./dist/angular-github-actions-amazon-s3 s3://dev-xpro/dev-xpro.c3spectra.cloud/v2
 
 
