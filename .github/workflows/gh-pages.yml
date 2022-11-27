@@ -37,8 +37,8 @@ jobs:
       if: success()
       run: |
         export VERSION=$(aws s3 ls s3://dev-xpro/dev-xpro.c3spectra.cloud/ --recursive | awk '{$1=$2=$3=""; print $0}' | sed 's/^[ \t]*//' | grep 'v[1-9]' | cut -d"/" -f2 | sort | uniq | cut -d"v" -f2 | tail -1)
-        export NEW_VERSION=${VERSION}+1
+        NEW_VERSION=`expr $VERSION + 1`
         echo "Old Version: $VERSION and New Version: $NEW_VERSION"
-        #aws s3 sync ./dist/angular-github-actions-amazon-s3 s3://dev-xpro/dev-xpro.c3spectra.cloud/${VERSION}
+        aws s3 sync ./dist/angular-github-actions-amazon-s3 s3://dev-xpro/dev-xpro.c3spectra.cloud/v${NEW_VERSION}
 
 
